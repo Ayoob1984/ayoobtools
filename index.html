@@ -248,75 +248,6 @@
             opacity: 1;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background-color: var(--bg-gray);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #e1e8f0;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .feature-card:hover::before {
-            left: 100%;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
-            border-color: #3b82f6;
-        }
-
-        .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-        }
-
-        .feature-title {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            color: #1e293b;
-            font-weight: 700;
-        }
-
-        .feature-description {
-            color: #64748b;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
         /* Search Section */
         .search-section {
             padding: 80px 0;
@@ -361,36 +292,6 @@
             text-align: center;
             color: var(--text-light);
             min-height: 24px;
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .stat-item {
-            padding: 30px 20px;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
         }
 
         /* Tools Sections */
@@ -475,6 +376,105 @@
         .use-tool-btn:hover {
             background-color: var(--secondary-blue);
             transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: var(--bg-gray);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e1e8f0;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+            border-color: #3b82f6;
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .feature-description {
+            color: #64748b;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            padding: 30px 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         /* CTA Section */
@@ -761,66 +761,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why Tools Ayoob Stands Out</h2>
-                <p class="section-subtitle">We're not just another tool website - we're your productivity partner</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="feature-title">Blazing Fast Performance</h3>
-                    <p class="feature-description">Experience instant results with our optimized processing engine. Convert 100MB files in under 3 seconds - 5x faster than competitors.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h3 class="feature-title">Military-Grade Security</h3>
-                    <p class="feature-description">Your files are encrypted end-to-end and automatically deleted after processing. No storage, no tracking, complete privacy guaranteed.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3 class="feature-title">AI-Powered Smart Tools</h3>
-                    <p class="feature-description">Our tools learn from your usage patterns to provide smarter suggestions and automate repetitive tasks, saving you hours each week.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-infinity"></i>
-                    </div>
-                    <h3 class="feature-title">Truly Unlimited Usage</h3>
-                    <p class="feature-description">No hidden limits, no watermarks, no premium walls. Process hundreds of files daily without restrictions - completely free.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="feature-title">Zero Learning Curve</h3>
-                    <p class="feature-description">Intuitive interfaces designed for humans, not tech experts. Master any tool in under 30 seconds with our smart guidance system.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync"></i>
-                    </div>
-                    <h3 class="feature-title">Real-Time Collaboration</h3>
-                    <p class="feature-description">Work seamlessly with team members. Share tool sessions, track changes, and collaborate in real-time across all devices.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Search Section -->
     <section class="search-section">
         <div class="container">
@@ -835,56 +775,6 @@
                 <div class="search-results" id="searchResults">
                     <i class="fas fa-lightbulb"></i> Try searching for "convert PDF", "resize image", or "calculate BMI"
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Trusted by Industry Leaders</h2>
-                <p class="section-subtitle">Join 250,000+ professionals who rely on Tools Ayoob daily</p>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Specialized Tools</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">250K+</div>
-                    <div class="stat-label">Active Professionals</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">99.97%</div>
-                    <div class="stat-label">Uptime Reliability</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">4.9/5</div>
-                    <div class="stat-label">User Rating</div>
-                </div>
-
-                <div class="stat-item">
-                    <div class="stat-number">2M+</div>
-                    <div class="stat-label">Monthly Processes</div>
-                </div>
-
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Expert Support</div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 50px; color: rgba(255,255,255,0.8);">
-                <p style="font-size: 1.1rem; font-style: italic;">
-                    "Tools Ayoob saved our team 40+ hours monthly. The automation features are game-changing."
-                    <br>
-                    <strong>- Sarah Chen, Product Manager at TechCorp</strong>
-                </p>
             </div>
         </div>
     </section>
@@ -1423,6 +1313,116 @@
                     <p class="tool-description">Generate content using AI</p>
                     <a href="#" class="use-tool-btn">Use Tool</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Tools Ayoob Stands Out</h2>
+                <p class="section-subtitle">We're not just another tool website - we're your productivity partner</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Blazing Fast Performance</h3>
+                    <p class="feature-description">Experience instant results with our optimized processing engine. Convert 100MB files in under 3 seconds - 5x faster than competitors.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="feature-title">Military-Grade Security</h3>
+                    <p class="feature-description">Your files are encrypted end-to-end and automatically deleted after processing. No storage, no tracking, complete privacy guaranteed.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="feature-title">AI-Powered Smart Tools</h3>
+                    <p class="feature-description">Our tools learn from your usage patterns to provide smarter suggestions and automate repetitive tasks, saving you hours each week.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3 class="feature-title">Truly Unlimited Usage</h3>
+                    <p class="feature-description">No hidden limits, no watermarks, no premium walls. Process hundreds of files daily without restrictions - completely free.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Zero Learning Curve</h3>
+                    <p class="feature-description">Intuitive interfaces designed for humans, not tech experts. Master any tool in under 30 seconds with our smart guidance system.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3 class="feature-title">Real-Time Collaboration</h3>
+                    <p class="feature-description">Work seamlessly with team members. Share tool sessions, track changes, and collaborate in real-time across all devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Trusted by Industry Leaders</h2>
+                <p class="section-subtitle">Join 250,000+ professionals who rely on Tools Ayoob daily</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Specialized Tools</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">250K+</div>
+                    <div class="stat-label">Active Professionals</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">99.97%</div>
+                    <div class="stat-label">Uptime Reliability</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">4.9/5</div>
+                    <div class="stat-label">User Rating</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">2M+</div>
+                    <div class="stat-label">Monthly Processes</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Expert Support</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px; color: rgba(255,255,255,0.8);">
+                <p style="font-size: 1.1rem; font-style: italic;">
+                    "Tools Ayoob saved our team 40+ hours monthly. The automation features are game-changing."
+                    <br>
+                    <strong>- Sarah Chen, Product Manager at TechCorp</strong>
+                </p>
             </div>
         </div>
     </section>
