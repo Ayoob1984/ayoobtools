@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Rotator & Flipper Tool</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #222;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    max-width: 600px;
+    width: 95%;
+    padding: 25px;
+    text-align: center;
+    margin: 20px;
+  }
+
+  h1 {
+    color: #2575fc;
+    margin-bottom: 15px;
+  }
+
+  .upload-section {
+    margin: 15px 0;
+  }
+
+  input[type="file"] {
+    border: 2px dashed #2575fc;
+    border-radius: 10px;
+    padding: 10px;
+    background: #f9f9ff;
+    cursor: pointer;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  button {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    flex: 1 1 40%;
+    max-width: 180px;
+  }
+
+  button:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+  }
+
+  .preview {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background: #f4f8ff;
+    margin: 20px 0;
+  }
+
+  #image-preview {
+    max-width: 100%;
+    max-height: 280px;
+    transition: transform 0.3s ease;
+  }
+
+  .download button {
+    width: 100%;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+  }
+
+  /* Rating System */
+  .rating {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 15px 0;
+  }
+
+  .star {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .star.active, .star:hover, .star:hover ~ .star {
+    color: #ffb400;
+  }
+
+  /* Share Buttons */
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .share-buttons a {
+    background: #2575fc;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+
+  .share-buttons a:hover {
+    background: #6a11cb;
+  }
+
+  @media (max-width: 600px) {
+    button { width: 100%; max-width: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Image Rotator & Flipper Tool</h1>
+    <p>Upload, rotate, flip, and download your images instantly.</p>
+
+    <div class="upload-section">
+      <input type="file" id="image-upload" accept="image/*">
+    </div>
+
+    <div class="controls">
+      <button id="rotate-left">⟲ Rotate Left</button>
+      <button id="rotate-right">⟳ Rotate Right</button>
+      <button id="flip-horizontal">⇋ Flip Horizontal</button>
+      <button id="flip-vertical">↕ Flip Vertical</button>
+    </div>
+
+    <div class="preview">
+      <img id="image-preview" src="" alt="Image Preview" />
+    </div>
+
+    <div class="download">
+      <a id="download-link" href="#" download="edited_image.jpg">
+        <button>💾 Download Image</button>
+      </a>
+    </div>
+
+    <!-- ⭐ Star Rating -->
+    <h3>Rate This Tool ⭐</h3>
+    <div class="rating" id="rating-stars">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+    <p id="rating-result"></p>
+
+    <!-- 🔗 Share Section -->
+    <h3>Share this Tool 🔗</h3>
+    <div class="share-buttons">
+      <a href="#" id="share-facebook" target="_blank">Facebook</a>
+      <a href="#" id="share-twitter" target="_blank">X / Twitter</a>
+      <a href="#" id="share-whatsapp" target="_blank">WhatsApp</a>
+      <a href="#" id="share-linkedin" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+<script>
+  const imagePreview = document.getElementById('image-preview');
+  const imageUpload = document.getElementById('image-upload');
+  const rotateLeftBtn = document.getElementById('rotate-left');
+  const rotateRightBtn = document.getElementById('rotate-right');
+  const flipHorizontalBtn = document.getElementById('flip-horizontal');
+  const flipVerticalBtn = document.getElementById('flip-vertical');
+  const downloadLink = document.getElementById('download-link');
+
+  let rotation = 0, flipHorizontal = false, flipVertical = false;
+
+  imageUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        imagePreview.src = event.target.result;
+        rotation = 0;
+        flipHorizontal = false;
+        flipVertical = false;
+        imagePreview.style.transform = '';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  rotateLeftBtn.onclick = () => { rotation -= 90; updateImage(); };
+  rotateRightBtn.onclick = () => { rotation += 90; updateImage(); };
+  flipHorizontalBtn.onclick = () => { flipHorizontal = !flipHorizontal; updateImage(); };
+  flipVerticalBtn.onclick = () => { flipVertical = !flipVertical; updateImage(); };
+
+  function updateImage() {
+    imagePreview.style.transform =
+      `rotate(${rotation}deg)` +
+      (flipHorizontal ? ' scaleX(-1)' : '') +
+      (flipVertical ? ' scaleY(-1)' : '');
+    updateDownloadLink();
+  }
+
+  function updateDownloadLink() {
+    if (!imagePreview.src) return;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = imagePreview.src;
+
+    img.onload = function() {
+      let w = img.width, h = img.height;
+      if (rotation % 180 !== 0) [w, h] = [h, w];
+      canvas.width = w; canvas.height = h;
+      ctx.translate(w / 2, h / 2);
+      ctx.rotate(rotation * Math.PI / 180);
+      ctx.scale(flipHorizontal ? -1 : 1, flipVertical ? -1 : 1);
+      ctx.drawImage(img, -img.width / 2, -img.height / 2);
+      downloadLink.href = canvas.toDataURL('image/jpeg');
+    };
+  }
+
+  // ⭐ Star Rating Logic
+  const stars = document.querySelectorAll('.star');
+  const ratingResult = document.getElementById('rating-result');
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const rating = star.getAttribute('data-value');
+      stars.forEach(s => s.classList.remove('active'));
+      for (let i = 0; i < rating; i++) stars[i].classList.add('active');
+      ratingResult.textContent = `You rated this tool ${rating} ★`;
+    });
+  });
+
+  // 🔗 Social Share Links
+  const pageUrl = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent("Try this amazing Image Rotator & Flipper Tool!");
+
+  document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+  document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${pageUrl}`;
+  document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${text} ${pageUrl}`;
+  document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+</script>
+</body>
+</html>
