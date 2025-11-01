@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eSign PDF Tool - Tools Ayoob</title>
+  <meta name="description" content="Free online eSign PDF tool by Tools Ayoob. Securely sign your PDF files in seconds. Fast, private, and AI-powered.">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background: #fff;
+      margin-top: 50px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    input[type="file"] {
+      margin: 15px 0;
+      padding: 10px;
+      border: 2px dashed #007bff;
+      border-radius: 8px;
+      background-color: #f9fcff;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    canvas {
+      border: 2px solid #ccc;
+      margin-top: 15px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    button {
+      background: linear-gradient(45deg, #007bff, #00c6ff);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .share-section {
+      margin-top: 25px;
+      padding: 20px;
+      background-color: #f4f8ff;
+      border-radius: 12px;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .share-buttons a {
+      text-decoration: none;
+      background: #007bff;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: 0.3s ease;
+      font-size: 14px;
+    }
+
+    .share-buttons a:hover {
+      background: #0056b3;
+    }
+
+    .stars {
+      margin: 15px 0;
+    }
+
+    .star {
+      font-size: 26px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .star.selected {
+      color: #FFD700;
+    }
+
+    .brand-section {
+      background: #ffffffd9;
+      margin: 40px 0;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .brand-section h2 {
+      color: #007bff;
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    .brand-feature {
+      text-align: left;
+      margin: 15px auto;
+      max-width: 700px;
+    }
+
+    .brand-feature h3 {
+      color: #0056b3;
+      font-size: 18px;
+    }
+
+    .stats-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      background: #007bff;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      width: 120px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .container, .brand-section {
+        width: 95%;
+      }
+    }
+  </style>
+
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>eSign PDF Tool</h1>
+    <p>Upload your PDF, draw your signature, and download your signed document — all in seconds.</p>
+
+    <input type="file" id="pdfInput" accept="application/pdf" />
+    <canvas id="signaturePadCanvas" width="400" height="200"></canvas><br>
+    <button id="clearBtn">Clear Signature</button>
+    <button id="downloadBtn" disabled>Download Signed PDF</button>
+
+    <div class="share-section">
+      <h3>Enjoyed using this tool? Rate and Share 💙</h3>
+      <div class="stars" id="starRating">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="share-buttons">
+        <a href="#" onclick="shareTo('facebook')">Facebook</a>
+        <a href="#" onclick="shareTo('twitter')">Twitter (X)</a>
+        <a href="#" onclick="shareTo('whatsapp')">WhatsApp</a>
+        <a href="#" onclick="shareTo('telegram')">Telegram</a>
+        <a href="#" onclick="shareTo('linkedin')">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-section">
+    <h2>Why <strong>Tools Ayoob</strong> Stands Out</h2>
+    <p>We're not just another tool website — we're your productivity partner.</p>
+    <div class="brand-feature">
+      <h3>⚡ Blazing Fast Performance</h3>
+      <p>Convert or sign files up to 100MB in under 3 seconds — 5x faster than competitors.</p>
+    </div>
+    <div class="brand-feature">
+      <h3>🔒 Military-Grade Security</h3>
+      <p>All files are encrypted end-to-end and deleted instantly after processing. Your privacy matters.</p>
+    </div>
+    <div class="brand-feature">
+      <h3>🤖 AI-Powered Smart Tools</h3>
+      <p>Our tools adapt to your habits to provide intelligent suggestions and automate tasks.</p>
+    </div>
+    <div class="brand-feature">
+      <h3>💯 Truly Unlimited Usage</h3>
+      <p>No watermarks, no hidden limits. All features free forever.</p>
+    </div>
+    <div class="brand-feature">
+      <h3>👩‍💻 Real-Time Collaboration</h3>
+      <p>Share tool sessions and work together seamlessly across all devices.</p>
+    </div>
+    <div class="brand-feature">
+      <h3>⭐ Trusted by 250,000+ Professionals</h3>
+      <p>Join experts who trust Tools Ayoob for secure and fast online tools every day.</p>
+    </div>
+
+    <div class="stats-box">
+      <div class="stat"><strong>50+</strong><br>Specialized Tools</div>
+      <div class="stat"><strong>250K+</strong><br>Users</div>
+      <div class="stat"><strong>99%</strong><br>Uptime</div>
+      <div class="stat"><strong>4.8⭐</strong><br>User Rating</div>
+    </div>
+  </div>
+
+  <script>
+    const pdfInput = document.getElementById("pdfInput");
+    const signaturePadCanvas = document.getElementById("signaturePadCanvas");
+    const clearBtn = document.getElementById("clearBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    let signaturePad = new SignaturePad(signaturePadCanvas);
+    let pdfDocBytes;
+
+    pdfInput.addEventListener("change", handlePdfUpload);
+    clearBtn.addEventListener("click", () => {
+      signaturePad.clear();
+      downloadBtn.disabled = true;
+    });
+
+    async function handlePdfUpload(event) {
+      const file = event.target.files[0];
+      if (file && file.type === "application/pdf") {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          pdfDocBytes = e.target.result;
+          downloadBtn.disabled = false;
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        alert("Please upload a valid PDF file.");
+      }
+    }
+
+    downloadBtn.addEventListener("click", async () => {
+      if (signaturePad.isEmpty()) return alert("Please draw your signature first.");
+
+      const pdfDoc = await PDFLib.PDFDocument.load(pdfDocBytes);
+      const pngBytes = signaturePad.toDataURL().split(",")[1];
+      const pngImage = await pdfDoc.embedPng(pngBytes);
+
+      const pages = pdfDoc.getPages();
+      const firstPage = pages[0];
+      const { width, height } = firstPage.getSize();
+
+      firstPage.drawImage(pngImage, {
+        x: width - 300,
+        y: height - 150,
+        width: 150,
+        height: 75,
+      });
+
+      const signedPdfBytes = await pdfDoc.save();
+      const blob = new Blob([signedPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "signed_pdf.pdf";
+      a.click();
+    });
+
+    // Rating system
+    const stars = document.querySelectorAll(".star");
+    stars.forEach((star, i) => {
+      star.addEventListener("click", () => {
+        stars.forEach((s, index) => {
+          s.classList.toggle("selected", index <= i);
+        });
+        alert(`Thanks for rating ${i + 1} stars!`);
+      });
+    });
+
+    // Share system
+    function shareTo(platform) {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Try this awesome free eSign PDF tool by Tools Ayoob!");
+      const links = {
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+        whatsapp: `https://api.whatsapp.com/send?text=${text} ${url}`,
+        telegram: `https://t.me/share/url?url=${url}&text=${text}`,
+        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+      };
+      window.open(links[platform], "_blank");
+    }
+  </script>
+</body>
+</html>
