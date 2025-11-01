@@ -74,126 +74,6 @@
       font-size: 18px;
       color: #333;
     }
-
-    .share-box {
-      margin-top: 25px;
-      background: #f4faff;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    }
-
-    .share-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-
-    .share-buttons a {
-      text-decoration: none;
-      color: #fff;
-      background: #007bff;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-
-    .share-buttons a:hover {
-      background: #0056b3;
-    }
-
-    .stars {
-      margin-top: 15px;
-    }
-
-    .star {
-      font-size: 24px;
-      color: #ccc;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .star.active, .star:hover {
-      color: #ffcc00;
-      transform: scale(1.2);
-    }
-
-    .brand-section {
-      background: #ffffff;
-      border-radius: 20px;
-      margin: 40px auto 0;
-      padding: 30px;
-      max-width: 700px;
-      text-align: center;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    }
-
-    .brand-section h2 {
-      color: #007bff;
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
-
-    .brand-section p {
-      color: #444;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .feature {
-      background: #f8fbff;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
-      transition: 0.3s;
-    }
-
-    .feature:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 14px rgba(0, 123, 255, 0.2);
-    }
-
-    .feature h3 {
-      color: #007bff;
-      margin-bottom: 8px;
-      font-size: 18px;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .stat-box {
-      text-align: center;
-      margin: 10px;
-    }
-
-    .stat-box h4 {
-      color: #007bff;
-      margin: 5px 0;
-    }
-
-    @media (max-width: 500px) {
-      body {
-        padding: 20px;
-      }
-      .brand-section {
-        padding: 20px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -202,70 +82,17 @@
     <h1>BMI Calculator</h1>
     <input type="number" id="weight" placeholder="Enter your weight (kg)" />
     <input type="number" id="height" placeholder="Enter your height (cm)" />
-    <button type="button" onclick="calculateBMI()">Calculate BMI</button>
+    
+    <!-- use type="button" to prevent download or submit -->
+    <button id="bmiBtn">Calculate BMI</button>
+
     <div class="result" id="result"></div>
-
-    <div class="share-box">
-      <h3>Share this tool with friends</h3>
-      <div class="share-buttons">
-        <a href="#" onclick="share('facebook')">Facebook</a>
-        <a href="#" onclick="share('twitter')">X</a>
-        <a href="#" onclick="share('whatsapp')">WhatsApp</a>
-        <a href="#" onclick="share('telegram')">Telegram</a>
-        <a href="#" onclick="share('linkedin')">LinkedIn</a>
-        <a href="#" onclick="copyLink()">Copy Link</a>
-      </div>
-      <div class="stars" id="stars">
-        <span class="star" onclick="rate(1)">★</span>
-        <span class="star" onclick="rate(2)">★</span>
-        <span class="star" onclick="rate(3)">★</span>
-        <span class="star" onclick="rate(4)">★</span>
-        <span class="star" onclick="rate(5)">★</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="brand-section">
-    <h2>Why <b>Tools Ayoob</b> Stands Out</h2>
-    <p>We're not just another tool website – we're your productivity partner.</p>
-    <div class="features">
-      <div class="feature">
-        <h3>⚡ Blazing Fast Performance</h3>
-        <p>Experience instant results with our optimized engine. Convert 100MB files in under 3 seconds – 5x faster than competitors.</p>
-      </div>
-      <div class="feature">
-        <h3>🔒 Military-Grade Security</h3>
-        <p>Your files are encrypted end-to-end and deleted after processing. No tracking. Total privacy guaranteed.</p>
-      </div>
-      <div class="feature">
-        <h3>🤖 AI-Powered Smart Tools</h3>
-        <p>Our tools learn from your patterns to automate tasks and boost productivity effortlessly.</p>
-      </div>
-      <div class="feature">
-        <h3>💎 Truly Unlimited Usage</h3>
-        <p>No watermarks, no limits, no paywalls. Use all tools freely, anytime.</p>
-      </div>
-      <div class="feature">
-        <h3>🧭 Zero Learning Curve</h3>
-        <p>Intuitive designs made for everyone. Master any tool in seconds.</p>
-      </div>
-      <div class="feature">
-        <h3>🌐 Real-Time Collaboration</h3>
-        <p>Collaborate live with teams. Share sessions and track changes instantly.</p>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat-box"><h4>50+</h4><p>Specialized Tools</p></div>
-      <div class="stat-box"><h4>250K+</h4><p>Active Professionals</p></div>
-      <div class="stat-box"><h4>99%</h4><p>Uptime Reliability</p></div>
-      <div class="stat-box"><h4>4.8★</h4><p>User Rating</p></div>
-      <div class="stat-box"><h4>24/7</h4><p>Expert Support</p></div>
-    </div>
   </div>
 
   <script>
-    function calculateBMI() {
+    document.getElementById("bmiBtn").addEventListener("click", function(event) {
+      event.preventDefault(); // stop any form behavior or download
+
       const weight = parseFloat(document.getElementById("weight").value);
       const height = parseFloat(document.getElementById("height").value);
 
@@ -285,35 +112,8 @@
       else category = "Obesity";
 
       document.getElementById("result").textContent = `Your BMI is ${roundedBMI} (${category})`;
-    }
-
-    function share(platform) {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent("Check out this cool BMI Calculator on Tools Ayoob!");
-      let shareUrl = "";
-
-      switch(platform) {
-        case "facebook": shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
-        case "twitter": shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
-        case "whatsapp": shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`; break;
-        case "telegram": shareUrl = `https://t.me/share/url?url=${url}&text=${text}`; break;
-        case "linkedin": shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`; break;
-      }
-      window.open(shareUrl, '_blank');
-    }
-
-    function copyLink() {
-      navigator.clipboard.writeText(window.location.href);
-      alert("Link copied to clipboard!");
-    }
-
-    function rate(stars) {
-      const allStars = document.querySelectorAll(".star");
-      allStars.forEach((star, index) => {
-        star.classList.toggle("active", index < stars);
-      });
-      alert(`Thanks for rating ${stars} star${stars > 1 ? 's' : ''}!`);
-    }
+    });
   </script>
+
 </body>
 </html>
