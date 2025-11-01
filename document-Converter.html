@@ -211,12 +211,50 @@
     <div class="stars" id="stars">
       <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
     </div>
-    <div class="share-buttons">
-      <a href="#">Facebook</a>
-      <a href="#">Twitter</a>
-      <a href="#">LinkedIn</a>
-    </div>
-  </div>
+   <!-- Share Buttons + Copy Link -->
+<div class="share-buttons" style="text-align:center; margin:20px 0;">
+  <h3 style="font-size:20px; color:#004aad; margin-bottom:10px;">🔗 Share This Page</h3>
+
+  <!-- Facebook -->
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com" target="_blank" style="margin:0 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook" width="35">
+  </a>
+
+  <!-- Twitter / X -->
+  <a href="https://twitter.com/intent/tweet?url=https://yourwebsite.com&text=Check%20this%20out!" target="_blank" style="margin:0 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" width="35">
+  </a>
+
+  <!-- WhatsApp -->
+  <a href="https://api.whatsapp.com/send?text=Check%20this%20out!%20https://yourwebsite.com" target="_blank" style="margin:0 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" width="35">
+  </a>
+
+  <!-- Telegram -->
+  <a href="https://t.me/share/url?url=https://yourwebsite.com&text=Check%20this%20out!" target="_blank" style="margin:0 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" width="35">
+  </a>
+
+  <!-- Copy Link -->
+  <button onclick="copyPageLink()" style="background:#004aad; color:white; border:none; padding:8px 14px; border-radius:6px; margin-left:10px; cursor:pointer;">
+    📋 Copy Link
+  </button>
+
+  <p id="copyMsg" style="color:green; margin-top:8px; display:none;">✅ Link Copied!</p>
+</div>
+
+<script>
+function copyPageLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    document.getElementById('copyMsg').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('copyMsg').style.display = 'none';
+    }, 2000);
+  });
+}
+</script>
+
 
   <!-- 💬 Comment Section -->
   <div class="comment-section">
