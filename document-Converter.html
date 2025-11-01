@@ -25,34 +25,19 @@
       max-width: 500px;
       width: 100%;
       text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .container:hover {
-      transform: translateY(-5px);
     }
 
     h1 {
       color: #007BFF;
       margin-bottom: 1rem;
-      font-size: 2rem;
     }
 
-    input[type="file"],
-    select {
+    input[type="file"], select {
       width: 100%;
       margin: 0.75rem 0;
       padding: 0.7rem;
-      font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 10px;
-      transition: 0.2s ease;
-    }
-
-    input[type="file"]:hover,
-    select:hover {
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
     }
 
     .button {
@@ -64,12 +49,6 @@
       font-size: 1rem;
       cursor: pointer;
       margin-top: 1rem;
-      transition: all 0.3s;
-    }
-
-    .button:hover {
-      background: linear-gradient(90deg, #00bfff, #007bff);
-      transform: scale(1.05);
     }
 
     #downloadLink {
@@ -79,23 +58,17 @@
       padding: 0.8rem 1.5rem;
       border-radius: 10px;
       color: #fff;
-      font-weight: bold;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
     }
 
-    #downloadLink:hover {
-      background-color: #218838;
-    }
-
-    /* ⭐ Rating and Share Box */
+    /* ⭐ Rating & Share */
     .feedback-box {
       background: #fff;
       margin-top: 2rem;
       border-radius: 16px;
       padding: 1.5rem;
       max-width: 500px;
-      width: 100%;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       text-align: center;
     }
@@ -111,7 +84,6 @@
       font-size: 1.6rem;
       cursor: pointer;
       color: #ccc;
-      transition: color 0.3s;
     }
 
     .stars span.active {
@@ -129,14 +101,63 @@
       padding: 8px 15px;
       border-radius: 8px;
       margin: 0 5px;
-      transition: background 0.3s;
+      display: inline-block;
     }
 
-    .share-buttons a:hover {
+    /* 💬 Comment Section */
+    .comment-section {
+      background: #fff;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .comment-section h3 {
+      color: #007BFF;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .comment-box {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      resize: none;
+      font-size: 1rem;
+    }
+
+    .comment-submit {
+      margin-top: 10px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.3rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .comment-submit:hover {
       background: #0056b3;
     }
 
-    /* Brand Section */
+    .comment-list {
+      margin-top: 1rem;
+    }
+
+    .comment {
+      background: #f4f8ff;
+      padding: 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    /* ⚡ Brand Section */
     .brand-section {
       background: #fff;
       margin-top: 3rem;
@@ -150,12 +171,6 @@
     .brand-section h2 {
       color: #007bff;
       margin-bottom: 1rem;
-    }
-
-    .brand-section p {
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-      color: #555;
     }
 
     .brand-stats {
@@ -173,32 +188,19 @@
       margin: 8px;
       flex: 1 1 150px;
       text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .stat-box:hover {
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 600px) {
-      .brand-stats {
-        flex-direction: column;
-        align-items: center;
-      }
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>Document Converter</h1>
     <input type="file" id="docInput" accept=".txt,.doc,.docx,.pdf" />
-
     <label for="format">Convert to:</label>
     <select id="format">
       <option value="pdf">PDF</option>
       <option value="txt">Text</option>
     </select>
-
     <button class="button" id="convertBtn" disabled>Convert</button>
     <a id="downloadLink" download>Download Converted File</a>
   </div>
@@ -210,45 +212,33 @@
       <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
     </div>
     <div class="share-buttons">
-      <a href="https://facebook.com/sharer/sharer.php?u=https://toolsayoob.com" target="_blank">Facebook</a>
-      <a href="https://twitter.com/intent/tweet?url=https://toolsayoob.com" target="_blank">Twitter</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://toolsayoob.com" target="_blank">LinkedIn</a>
+      <a href="#">Facebook</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
     </div>
   </div>
 
+  <!-- 💬 Comment Section -->
+  <div class="comment-section">
+    <h3>💬 Leave a Comment</h3>
+    <textarea id="commentBox" class="comment-box" placeholder="Write your feedback..."></textarea>
+    <button id="commentSubmit" class="comment-submit">Post Comment</button>
+    <div id="commentList" class="comment-list"></div>
+  </div>
+
+  <!-- 🚀 Brand Section -->
   <div class="brand-section">
     <h2>Why <strong>Tools Ayoob</strong> Stands Out</h2>
     <p>We're not just another tool website — we're your productivity partner.</p>
-    <p><strong>Blazing Fast Performance:</strong> Convert 100MB files in under 3 seconds — 5x faster than competitors.</p>
-    <p><strong>Military-Grade Security:</strong> End-to-end encrypted. No tracking, no storage — total privacy.</p>
-    <p><strong>AI-Powered Smart Tools:</strong> Learn your workflow and automate repetitive tasks.</p>
-    <p><strong>Truly Unlimited Usage:</strong> No hidden limits. 100% free — forever.</p>
-    <p><strong>Zero Learning Curve:</strong> Designed for humans, not tech experts. Use in under 30 seconds.</p>
-    <p><strong>Real-Time Collaboration:</strong> Work seamlessly across teams and devices.</p>
-    <p><strong>Trusted by 250,000+ Professionals Worldwide.</strong></p>
-
     <div class="brand-stats">
-      <div class="stat-box">
-        <h3>50+</h3>
-        <p>Specialized Tools</p>
-      </div>
-      <div class="stat-box">
-        <h3>250K+</h3>
-        <p>Active Users</p>
-      </div>
-      <div class="stat-box">
-        <h3>99%</h3>
-        <p>Uptime</p>
-      </div>
-      <div class="stat-box">
-        <h3>4.8★</h3>
-        <p>User Rating</p>
-      </div>
+      <div class="stat-box"><h3>50+</h3><p>Specialized Tools</p></div>
+      <div class="stat-box"><h3>250K+</h3><p>Active Users</p></div>
+      <div class="stat-box"><h3>99%</h3><p>Uptime</p></div>
+      <div class="stat-box"><h3>4.8★</h3><p>User Rating</p></div>
     </div>
   </div>
 
   <script>
-    // File converter
     const docInput = document.getElementById('docInput');
     const convertBtn = document.getElementById('convertBtn');
     const downloadLink = document.getElementById('downloadLink');
@@ -301,17 +291,32 @@
       if (file.type.includes('text') || file.name.endsWith('.txt')) {
         reader.readAsText(file);
       } else {
-        alert('Only .txt files are currently supported for conversion.');
+        alert('Only .txt files are supported now.');
       }
     });
 
-    // Star rating logic
+    // ⭐ Star rating
     const stars = document.querySelectorAll('#stars span');
     stars.forEach((star, index) => {
       star.addEventListener('click', () => {
         stars.forEach((s, i) => s.classList.toggle('active', i <= index));
-        alert(`Thanks! You rated this tool ${index + 1} star(s).`);
+        alert(`You rated ${index + 1} star(s)!`);
       });
+    });
+
+    // 💬 Comment Section Logic
+    const commentBox = document.getElementById('commentBox');
+    const commentSubmit = document.getElementById('commentSubmit');
+    const commentList = document.getElementById('commentList');
+
+    commentSubmit.addEventListener('click', () => {
+      const text = commentBox.value.trim();
+      if (text === "") return alert("Please write something!");
+      const div = document.createElement('div');
+      div.className = 'comment';
+      div.textContent = text;
+      commentList.prepend(div);
+      commentBox.value = '';
     });
   </script>
 </body>
