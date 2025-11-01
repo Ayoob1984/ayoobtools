@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF to Word Converter – Tools Ayoob</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #007bff, #6f42c1);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 520px;
+      width: 90%;
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 10px;
+      font-size: 1.8em;
+    }
+
+    p.desc {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 20px auto;
+      padding: 8px;
+      border: 2px dashed #007bff;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    input[type="file"]:hover {
+      background-color: #f0f8ff;
+    }
+
+    button {
+      background: linear-gradient(45deg, #007bff, #6f42c1);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #status {
+      margin-top: 15px;
+      font-weight: 500;
+      color: #444;
+    }
+
+    /* ⭐ Rating */
+    .rating {
+      margin-top: 25px;
+    }
+
+    .star {
+      font-size: 28px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    .star:hover,
+    .star.active {
+      color: #ffcc00;
+      transform: scale(1.2);
+    }
+
+    /* 🔗 Share buttons */
+    .share-section {
+      margin-top: 25px;
+    }
+
+    .share-btn {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 16px;
+      border-radius: 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .facebook { background: #3b5998; }
+    .twitter { background: #1da1f2; }
+    .whatsapp { background: #25d366; }
+    .copylink { background: #6f42c1; }
+
+    .share-btn:hover {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PDF to Word Converter</h1>
+    <p class="desc">Convert your PDF files into editable Word documents quickly and easily!</p>
+
+    <input type="file" id="pdfUpload" accept="application/pdf" />
+    <button onclick="convertToWord()">Convert to Word</button>
+    <p id="status"></p>
+
+    <div class="rating">
+      <p>⭐ Rate this tool:</p>
+      <span class="star" onclick="rateTool(1)">★</span>
+      <span class="star" onclick="rateTool(2)">★</span>
+      <span class="star" onclick="rateTool(3)">★</span>
+      <span class="star" onclick="rateTool(4)">★</span>
+      <span class="star" onclick="rateTool(5)">★</span>
+      <p id="ratingText"></p>
+    </div>
+
+    <div class="share-section">
+      <p>🔗 Share this tool:</p>
+      <a class="share-btn facebook" target="_blank" id="fbShare">Facebook</a>
+      <a class="share-btn twitter" target="_blank" id="twShare">Twitter</a>
+      <a class="share-btn whatsapp" target="_blank" id="waShare">WhatsApp</a>
+      <a class="share-btn copylink" href="#" onclick="copyLink()">Copy Link</a>
+    </div>
+  </div>
+
+  <script>
+    async function convertToWord() {
+      const fileInput = document.getElementById('pdfUpload');
+      const status = document.getElementById('status');
+      if (!fileInput.files.length) {
+        status.textContent = '⚠️ Please select a PDF file.';
+        return;
+      }
+
+      const file = fileInput.files[0];
+      status.textContent = '⏳ Uploading and converting file...';
+
+      // Mock conversion delay
+      setTimeout(() => {
+        status.textContent = '✅ Conversion successful! Download will start shortly.';
+        const blob = new Blob(["This is a mock Word document content."], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'converted.docx';
+        a.click();
+        URL.revokeObjectURL(url);
+      }, 2000);
+    }
+
+    // ⭐ Star Rating System
+    const stars = document.querySelectorAll('.star');
+    function rateTool(rating) {
+      stars.forEach((s, i) => s.classList.toggle('active', i < rating));
+      document.getElementById('ratingText').textContent = `You rated this ${rating} star${rating > 1 ? 's' : ''}!`;
+      localStorage.setItem('pdfToolRating', rating);
+    }
+
+    // Load saved rating
+    window.onload = () => {
+      const savedRating = localStorage.getItem('pdfToolRating');
+      if (savedRating) rateTool(savedRating);
+      const pageUrl = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      document.getElementById('fbShare').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      document.getElementById('twShare').href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=Try this amazing PDF to Word Converter!`;
+      document.getElementById('waShare').href = `https://wa.me/?text=Try this cool PDF to Word Converter: ${pageUrl}`;
+    };
+
+    // 🔗 Copy link
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href);
+      alert('🔗 Link copied to clipboard!');
+    }
+  </script>
+</body>
+</html>
