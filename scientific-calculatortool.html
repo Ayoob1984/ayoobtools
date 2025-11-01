@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Scientific Calculator | Tools Ayoob</title>
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        color: #222;
+    }
+
+    h1 {
+        color: #fff;
+        margin-top: 30px;
+        font-size: 2rem;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .calculator {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        text-align: center;
+        width: 330px;
+        margin-top: 20px;
+    }
+
+    #display {
+        width: 100%;
+        height: 55px;
+        font-size: 1.6rem;
+        text-align: right;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        box-shadow: inset 0 2px 3px rgba(0,0,0,0.1);
+    }
+
+    .button {
+        width: 65px;
+        height: 65px;
+        margin: 6px;
+        font-size: 1.3rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        background: #e9f0f7;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .button:hover {
+        background: #007bff;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .button:active {
+        background: #0056b3;
+    }
+
+    .button.double {
+        width: 140px;
+    }
+
+    .button.clear {
+        background: #ff4d4d;
+        color: white;
+    }
+
+    .button.equals {
+        background: #28a745;
+        color: white;
+    }
+
+    .button.function {
+        background: #17a2b8;
+        color: white;
+    }
+
+    /* Share Box */
+    .share-box {
+        background: #fff;
+        margin-top: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        text-align: center;
+        padding: 20px;
+        width: 330px;
+    }
+
+    .share-box h2 {
+        margin-bottom: 15px;
+        color: #007bff;
+        font-size: 1.2rem;
+    }
+
+    .share-buttons button {
+        margin: 5px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .fb {background: #3b5998;}
+    .tw {background: #1da1f2;}
+    .wa {background: #25d366;}
+    .tg {background: #0088cc;}
+    .ln {background: #0077b5;}
+    .copy {background: #6c757d;}
+
+    .share-buttons button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    /* Rating */
+    .rating {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .star {
+        font-size: 30px;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .star.active {
+        color: gold;
+    }
+
+    /* Brand Section */
+    .brand-box {
+        background: #ffffff;
+        width: 90%;
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .brand-box h2 {
+        color: #007bff;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .brand-box p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .brand-box ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 15px;
+    }
+
+    .brand-box li {
+        margin: 10px 0;
+        background: #f1f8ff;
+        border-left: 4px solid #007bff;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .brand-footer {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+        color: #007bff;
+    }
+</style>
+</head>
+<body>
+
+<h1>Scientific Calculator</h1>
+
+<div class="calculator">
+    <input type="text" id="display" disabled />
+    <div>
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button function" onclick="appendToDisplay('/')">/</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button function" onclick="appendToDisplay('*')">*</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button function" onclick="appendToDisplay('-')">-</button>
+    </div>
+    <div>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+        <button class="button double clear" onclick="clearDisplay()">C</button>
+        <button class="button function" onclick="appendToDisplay('+')">+</button>
+    </div>
+    <div>
+        <button class="button function" onclick="appendToDisplay('Math.sqrt(')">√</button>
+        <button class="button function" onclick="appendToDisplay('Math.pow(')">x²</button>
+        <button class="button function" onclick="appendToDisplay('Math.sin(')">sin</button>
+        <button class="button function" onclick="appendToDisplay('Math.cos(')">cos</button>
+    </div>
+    <div>
+        <button class="button function" onclick="appendToDisplay('Math.tan(')">tan</button>
+        <button class="button function" onclick="appendToDisplay('Math.log(')">log</button>
+        <button class="button function" onclick="appendToDisplay('Math.exp(')">exp</button>
+        <button class="button equals" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<!-- Share and Rating Box -->
+<div class="share-box">
+    <h2>Enjoyed this tool? Share & Rate!</h2>
+    <div class="share-buttons">
+        <button class="fb" onclick="share('facebook')">Facebook</button>
+        <button class="tw" onclick="share('twitter')">Twitter (X)</button>
+        <button class="wa" onclick="share('whatsapp')">WhatsApp</button>
+        <button class="tg" onclick="share('telegram')">Telegram</button>
+        <button class="ln" onclick="share('linkedin')">LinkedIn</button>
+        <button class="copy" onclick="copyLink()">Copy Link</button>
+    </div>
+    <div class="rating" id="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+    </div>
+</div>
+
+<!-- Brand Section -->
+<div class="brand-box">
+    <h2>Why Tools Ayoob Stands Out</h2>
+    <p>We're not just another tool website - we're your productivity partner.</p>
+    <ul>
+        <li><strong>Blazing Fast Performance:</strong> Convert 100MB files in under 3 seconds – 5x faster than competitors.</li>
+        <li><strong>Military-Grade Security:</strong> Complete privacy guaranteed with end-to-end encryption.</li>
+        <li><strong>AI-Powered Smart Tools:</strong> Adaptive tools that learn your workflow for better productivity.</li>
+        <li><strong>Truly Unlimited Usage:</strong> No limits, no watermarks – completely free, forever.</li>
+        <li><strong>Zero Learning Curve:</strong> Intuitive design anyone can master in 30 seconds.</li>
+        <li><strong>Real-Time Collaboration:</strong> Work with your team across all devices instantly.</li>
+        <li><strong>Trusted by Industry Leaders:</strong> 250,000+ professionals rely on Tools Ayoob daily.</li>
+    </ul>
+    <div class="brand-footer">
+        ⭐ Tools Ayoob — Empowering Smart Productivity
+    </div>
+</div>
+
+<script>
+const display = document.getElementById('display');
+
+// Display input
+function appendToDisplay(value) {
+    display.value += value;
+}
+
+// Clear
+function clearDisplay() {
+    display.value = '';
+}
+
+// Calculate
+function calculate() {
+    try {
+        const result = eval(display.value);
+        display.value = result;
+    } catch {
+        display.value = 'Error';
+    }
+}
+
+// Share Buttons
+function share(platform) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent("Check out this cool Scientific Calculator from Tools Ayoob!");
+
+    const links = {
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+        whatsapp: `https://api.whatsapp.com/send?text=${text}%20${url}`,
+        telegram: `https://t.me/share/url?url=${url}&text=${text}`,
+        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`
+    };
+
+    window.open(links[platform], '_blank');
+}
+
+// Copy Link
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("🔗 Link copied to clipboard!");
+}
+
+// Star Rating
+const stars = document.querySelectorAll(".star");
+let rating = localStorage.getItem("toolRating") || 0;
+
+stars.forEach(star => {
+    if (star.dataset.value <= rating) star.classList.add("active");
+    star.addEventListener("click", () => {
+        rating = star.dataset.value;
+        localStorage.setItem("toolRating", rating);
+        stars.forEach(s => s.classList.toggle("active", s.dataset.value <= rating));
+    });
+});
+</script>
+</body>
+</html>
