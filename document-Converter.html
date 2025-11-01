@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document Converter - Tools Ayoob</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #007bff, #6f42c1);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 15px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      color: #007BFF;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    input[type="file"],
+    select {
+      width: 100%;
+      margin: 0.75rem 0;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      transition: 0.2s ease;
+    }
+
+    input[type="file"]:hover,
+    select:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    }
+
+    .button {
+      background: linear-gradient(90deg, #007bff, #00d4ff);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s;
+    }
+
+    .button:hover {
+      background: linear-gradient(90deg, #00bfff, #007bff);
+      transform: scale(1.05);
+    }
+
+    #downloadLink {
+      display: none;
+      margin-top: 1.5rem;
+      background-color: #28a745;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #downloadLink:hover {
+      background-color: #218838;
+    }
+
+    /* ⭐ Rating and Share Box */
+    .feedback-box {
+      background: #fff;
+      margin-top: 2rem;
+      border-radius: 16px;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .stars span {
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+
+    .stars span.active {
+      color: #ffc107;
+    }
+
+    .share-buttons {
+      margin-top: 15px;
+    }
+
+    .share-buttons a {
+      text-decoration: none;
+      color: #fff;
+      background: #007bff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      margin: 0 5px;
+      transition: background 0.3s;
+    }
+
+    .share-buttons a:hover {
+      background: #0056b3;
+    }
+
+    /* Brand Section */
+    .brand-section {
+      background: #fff;
+      margin-top: 3rem;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 800px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .brand-section h2 {
+      color: #007bff;
+      margin-bottom: 1rem;
+    }
+
+    .brand-section p {
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      color: #555;
+    }
+
+    .brand-stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .stat-box {
+      background: linear-gradient(90deg, #007bff, #00bfff);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin: 8px;
+      flex: 1 1 150px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .stat-box:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .brand-stats {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Document Converter</h1>
+    <input type="file" id="docInput" accept=".txt,.doc,.docx,.pdf" />
+
+    <label for="format">Convert to:</label>
+    <select id="format">
+      <option value="pdf">PDF</option>
+      <option value="txt">Text</option>
+    </select>
+
+    <button class="button" id="convertBtn" disabled>Convert</button>
+    <a id="downloadLink" download>Download Converted File</a>
+  </div>
+
+  <div class="feedback-box">
+    <h3>⭐ Enjoyed using this tool?</h3>
+    <p>Rate your experience and share with friends!</p>
+    <div class="stars" id="stars">
+      <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+    </div>
+    <div class="share-buttons">
+      <a href="https://facebook.com/sharer/sharer.php?u=https://toolsayoob.com" target="_blank">Facebook</a>
+      <a href="https://twitter.com/intent/tweet?url=https://toolsayoob.com" target="_blank">Twitter</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://toolsayoob.com" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="brand-section">
+    <h2>Why <strong>Tools Ayoob</strong> Stands Out</h2>
+    <p>We're not just another tool website — we're your productivity partner.</p>
+    <p><strong>Blazing Fast Performance:</strong> Convert 100MB files in under 3 seconds — 5x faster than competitors.</p>
+    <p><strong>Military-Grade Security:</strong> End-to-end encrypted. No tracking, no storage — total privacy.</p>
+    <p><strong>AI-Powered Smart Tools:</strong> Learn your workflow and automate repetitive tasks.</p>
+    <p><strong>Truly Unlimited Usage:</strong> No hidden limits. 100% free — forever.</p>
+    <p><strong>Zero Learning Curve:</strong> Designed for humans, not tech experts. Use in under 30 seconds.</p>
+    <p><strong>Real-Time Collaboration:</strong> Work seamlessly across teams and devices.</p>
+    <p><strong>Trusted by 250,000+ Professionals Worldwide.</strong></p>
+
+    <div class="brand-stats">
+      <div class="stat-box">
+        <h3>50+</h3>
+        <p>Specialized Tools</p>
+      </div>
+      <div class="stat-box">
+        <h3>250K+</h3>
+        <p>Active Users</p>
+      </div>
+      <div class="stat-box">
+        <h3>99%</h3>
+        <p>Uptime</p>
+      </div>
+      <div class="stat-box">
+        <h3>4.8★</h3>
+        <p>User Rating</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // File converter
+    const docInput = document.getElementById('docInput');
+    const convertBtn = document.getElementById('convertBtn');
+    const downloadLink = document.getElementById('downloadLink');
+    const formatSelect = document.getElementById('format');
+    let file;
+
+    docInput.addEventListener('change', (e) => {
+      file = e.target.files[0];
+      convertBtn.disabled = !file;
+    });
+
+    convertBtn.addEventListener('click', async () => {
+      const format = formatSelect.value;
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async function (e) {
+        const text = e.target.result;
+        let blob;
+        let filename = file.name.split('.')[0];
+
+        if (format === 'txt') {
+          blob = new Blob([text], { type: 'text/plain' });
+          downloadLink.download = `${filename}.txt`;
+        } else if (format === 'pdf') {
+          const { PDFDocument, rgb, StandardFonts } = await import('https://cdn.skypack.dev/pdf-lib');
+          const pdfDoc = await PDFDocument.create();
+          const page = pdfDoc.addPage([595, 842]);
+          const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+          const fontSize = 12;
+
+          const lines = text.split('\n');
+          let y = 800;
+          lines.forEach(line => {
+            if (y < 40) return;
+            page.drawText(line, { x: 50, y: y, size: fontSize, font, color: rgb(0, 0, 0) });
+            y -= fontSize + 2;
+          });
+
+          const pdfBytes = await pdfDoc.save();
+          blob = new Blob([pdfBytes], { type: 'application/pdf' });
+          downloadLink.download = `${filename}.pdf`;
+        }
+
+        const url = URL.createObjectURL(blob);
+        downloadLink.href = url;
+        downloadLink.style.display = 'inline-block';
+      };
+
+      if (file.type.includes('text') || file.name.endsWith('.txt')) {
+        reader.readAsText(file);
+      } else {
+        alert('Only .txt files are currently supported for conversion.');
+      }
+    });
+
+    // Star rating logic
+    const stars = document.querySelectorAll('#stars span');
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        stars.forEach((s, i) => s.classList.toggle('active', i <= index));
+        alert(`Thanks! You rated this tool ${index + 1} star(s).`);
+      });
+    });
+  </script>
+</body>
+</html>
