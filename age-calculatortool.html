@@ -88,4 +88,78 @@
 
     .share-box h3 {
       color: #007bff;
-      margin-bottom
+      margin-bottom: 10px;
+    }
+
+    .share-buttons a {
+      text-decoration: none;
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 5px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .share-buttons a:hover {
+      background: #0056b3;
+    }
+
+    .rating {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      color: #ffd700;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Age Calculator</h1>
+    <input type="date" id="dob" />
+    <button onclick="calculateAge()">Calculate Age</button>
+    <div id="result"></div>
+
+    <div class="share-box">
+      <h3>Share This Tool</h3>
+      <div class="share-buttons">
+        <a href="#" onclick="share('facebook')">Facebook</a>
+        <a href="#" onclick="share('twitter')">Twitter</a>
+        <a href="#" onclick="share('whatsapp')">WhatsApp</a>
+      </div>
+
+      <div class="rating" onclick="alert('Thanks for rating! ⭐')">
+        ★★★★★
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      const dob = document.getElementById('dob').value;
+      if (!dob) {
+        document.getElementById('result').innerText = "Please select your birth date.";
+        return;
+      }
+      const birthDate = new Date(dob);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      document.getElementById('result').innerText = `You are ${age} years old.`;
+    }
+
+    function share(platform) {
+      const url = window.location.href;
+      const text = "Check out this Age Calculator by Tools Ayoob!";
+      if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+      if (platform === 'twitter') window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+      if (platform === 'whatsapp') window.open(`https://api.whatsapp.com/send?text=${text} ${url}`, '_blank');
+    }
+  </script>
+</body>
+</html>
