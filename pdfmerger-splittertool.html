@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Merger & Splitter - Tools Ayoob</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #00b4db, #0083b0);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #ffffff;
+      color: #333;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      max-width: 650px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      color: #0083b0;
+      margin-top: 2rem;
+    }
+
+    input[type="file"], input[type="text"] {
+      display: block;
+      margin: 1rem auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.5rem;
+      width: 80%;
+    }
+
+    .button {
+      background: linear-gradient(90deg, #007bff, #00b4db);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .button:disabled {
+      background: #a6c8ff;
+      cursor: not-allowed;
+    }
+
+    #downloadLink {
+      display: none;
+      margin-top: 1.5rem;
+    }
+
+    /* Rating section */
+    .rating {
+      margin-top: 2rem;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .star {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+      transition: 0.3s;
+    }
+
+    .star.active {
+      color: #ffcc00;
+      transform: scale(1.2);
+    }
+
+    .thanks-message {
+      margin-top: 1rem;
+      color: #007bff;
+      font-weight: bold;
+      display: none;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Share section */
+    .share-section {
+      margin-top: 2rem;
+    }
+
+    .share-buttons a {
+      margin: 0 8px;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .share-buttons a:hover {
+      transform: scale(1.2);
+    }
+
+    .whatsapp { color: #25d366; }
+    .twitter { color: #1da1f2; }
+    .facebook { color: #3b5998; }
+    .email { color: #ea4335; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5rem; }
+      .button { width: 90%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 PDF Merger & Splitter</h1>
+    <p>Combine or split your PDFs easily — fast, secure, and free!</p>
+
+    <!-- Merger -->
+    <h2>Merge PDFs</h2>
+    <input type="file" id="mergeInput" accept="application/pdf" multiple />
+    <button class="button" id="mergeBtn" disabled>Merge PDFs</button>
+
+    <!-- Splitter -->
+    <h2>Split PDF</h2>
+    <input type="file" id="splitInput" accept="application/pdf" />
+    <input type="text" id="splitPages" placeholder="e.g., 1,3-5" />
+    <button class="button" id="splitBtn" disabled>Split PDF</button>
+
+    <a id="downloadLink" class="button" download>Download</a>
+
+    <!-- Rating section -->
+    <div class="rating">
+      <h3>⭐ Love this tool? Rate us!</h3>
+      <div class="stars" id="starContainer">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+      <div class="thanks-message" id="thanksMessage">💙 Thank you for rating!</div>
+    </div>
+
+    <!-- Share section -->
+    <div class="share-section">
+      <h3>🔗 Share this tool</h3>
+      <div class="share-buttons">
+        <a class="whatsapp" href="https://wa.me/?text=Check%20out%20this%20amazing%20PDF%20Merger%20and%20Splitter!%20https://yourwebsite.com" target="_blank">💬</a>
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=Try%20this%20awesome%20PDF%20Merger%20and%20Splitter!%20https://yourwebsite.com" target="_blank">🐦</a>
+        <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com" target="_blank">📘</a>
+        <a class="email" href="mailto:?subject=PDF%20Tool&body=Try%20this%20PDF%20Merger%20and%20Splitter!%20https://yourwebsite.com">✉️</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { PDFDocument } from 'https://cdn.skypack.dev/pdf-lib';
+
+    const mergeInput = document.getElementById('mergeInput');
+    const splitInput = document.getElementById('splitInput');
+    const splitPages = document.getElementById('splitPages');
+    const mergeBtn = document.getElementById('mergeBtn');
+    const splitBtn = document.getElementById('splitBtn');
+    const downloadLink = document.getElementById('downloadLink');
+
+    let mergeFiles = [];
+    let splitFile;
+
+    mergeInput.addEventListener('change', (e) => {
+      mergeFiles = Array.from(e.target.files);
+      mergeBtn.disabled = mergeFiles.length < 2;
+    });
+
+    splitInput.addEventListener('change', (e) => {
+      splitFile = e.target.files[0];
+      splitBtn.disabled = !splitFile;
+    });
+
+    mergeBtn.addEventListener('click', async () => {
+      const mergedPdf = await PDFDocument.create();
+      for (const file of mergeFiles) {
+        const bytes = await file.arrayBuffer();
+        const pdf = await PDFDocument.load(bytes);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach(page => mergedPdf.addPage(page));
+      }
+      const mergedBytes = await mergedPdf.save();
+      const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = 'merged.pdf';
+      downloadLink.style.display = 'inline-block';
+    });
+
+    splitBtn.addEventListener('click', async () => {
+      const bytes = await splitFile.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(bytes);
+      const splitPdf = await PDFDocument.create();
+      const input = splitPages.value;
+      const pageIndices = parsePageInput(input, pdfDoc.getPageCount());
+      const pages = await splitPdf.copyPages(pdfDoc, pageIndices);
+      pages.forEach(page => splitPdf.addPage(page));
+      const splitBytes = await splitPdf.save();
+      const blob = new Blob([splitBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = 'split.pdf';
+      downloadLink.style.display = 'inline-block';
+    });
+
+    function parsePageInput(input, maxPages) {
+      const ranges = input.split(',');
+      const pages = new Set();
+      for (const range of ranges) {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(num => parseInt(num.trim(), 10) - 1);
+          for (let i = start; i <= end && i < maxPages; i++) pages.add(i);
+        } else {
+          const index = parseInt(range.trim(), 10) - 1;
+          if (!isNaN(index) && index < maxPages) pages.add(index);
+        }
+      }
+      return Array.from(pages);
+    }
+
+    // ⭐ Star rating system
+    const stars = document.querySelectorAll('.star');
+    const thanksMessage = document.getElementById('thanksMessage');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const value = parseInt(star.dataset.value);
+        stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= value));
+        thanksMessage.style.display = 'block';
+        setTimeout(() => thanksMessage.style.display = 'none', 3000);
+      });
+    });
+  </script>
+</body>
+</html>
