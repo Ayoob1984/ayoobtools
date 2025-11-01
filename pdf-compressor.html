@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Compressor | Tools Ayoob</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(135deg, #007BFF, #00C6FF);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: #fff;
+      max-width: 520px;
+      margin: 2rem;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #007BFF;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 1rem;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem;
+      border: 2px dashed #007BFF;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    input[type="file"]:hover {
+      border-color: #0056b3;
+    }
+
+    .button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .button:disabled {
+      background-color: #a6c8ff;
+      cursor: not-allowed;
+    }
+
+    #downloadLink {
+      display: none;
+      margin-top: 1.5rem;
+    }
+
+    /* ⭐ Rating Section */
+    .rating {
+      margin-top: 2rem;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .star {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .star.selected,
+    .star:hover,
+    .star:hover ~ .star {
+      color: #FFD700;
+    }
+
+    /* 🔗 Share Buttons */
+    .share-buttons {
+      margin-top: 1.5rem;
+    }
+
+    .share-buttons button {
+      background: #f1f1f1;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .share-buttons button:hover {
+      background: #007BFF;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 PDF Compressor</h1>
+    <p>Compress your PDF files easily without losing quality.</p>
+
+    <input type="file" id="pdfInput" accept="application/pdf" />
+    <button class="button" id="compressBtn" disabled>Compress PDF</button>
+    <a id="downloadLink" class="button" download="compressed.pdf">⬇️ Download Compressed PDF</a>
+
+    <!-- ⭐ Rating Section -->
+    <div class="rating">
+      <h3>Rate this tool</h3>
+      <div class="stars" id="stars">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+      <p id="ratingText" style="margin-top:10px; font-weight:bold;"></p>
+    </div>
+
+    <!-- 🔗 Share Buttons -->
+    <div class="share-buttons">
+      <h3>Share this tool</h3>
+      <button onclick="share('facebook')">Facebook</button>
+      <button onclick="share('twitter')">Twitter</button>
+      <button onclick="share('whatsapp')">WhatsApp</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { PDFDocument } from 'https://cdn.skypack.dev/pdf-lib';
+
+    const pdfInput = document.getElementById('pdfInput');
+    const compressBtn = document.getElementById('compressBtn');
+    const downloadLink = document.getElementById('downloadLink');
+    let originalPDF;
+
+    pdfInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          originalPDF = e.target.result;
+          compressBtn.disabled = false;
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        compressBtn.disabled = true;
+      }
+    });
+
+    compressBtn.addEventListener('click', async () => {
+      const pdfDoc = await PDFDocument.load(originalPDF);
+      const compressedPdf = await PDFDocument.create();
+      const pages = await compressedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
+      pages.forEach((page) => compressedPdf.addPage(page));
+
+      const compressedBytes = await compressedPdf.save();
+      const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.style.display = 'inline-block';
+    });
+
+    // ⭐ Rating System
+    const stars = document.querySelectorAll('.star');
+    const ratingText = document.getElementById('ratingText');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        stars.forEach(s => s.classList.remove('selected'));
+        star.classList.add('selected');
+        const rating = star.getAttribute('data-value');
+        ratingText.textContent = `You rated this tool ${rating} ★`;
+      });
+    });
+
+    // 🔗 Share Function
+    window.share = function (platform) {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Try this free online PDF Compressor by Tools Ayoob!");
+      let shareUrl = '';
+
+      switch (platform) {
+        case 'facebook':
+          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+          break;
+        case 'twitter':
+          shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+          break;
+        case 'whatsapp':
+          shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+          break;
+      }
+      window.open(shareUrl, '_blank');
+    };
+  </script>
+</body>
+</html>
